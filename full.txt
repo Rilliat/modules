@@ -2,3 +2,4 @@ ImageToText
 crasher
 PipHelper
 SpotifyNow
+LiMERPMod
