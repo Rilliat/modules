@@ -950,7 +950,7 @@ class SpotifyMod(loader.Module):
         except Exception:
             device = None
 
-        volume = current_playback.get("device", {}).get("volume_percent", 0)
+        # volume = current_playback.get("device", {}).get("volume_percent", 0)
 
         try:
             playlist_id = current_playback["context"]["uri"].split(":")[-1]
