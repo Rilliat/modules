@@ -511,33 +511,36 @@ class SpotifyMod(loader.Module):
 
         music = await self.musicdl.dl(full_song_name, only_document=True)
 
-        await self._client.send_file(
-            message.peer_id,
-            music,
-            caption=(
-                override_text
-                or (
-                    (
-                        f"🗽 <b>{utils.escape_html(full_song_name)}</b>{{is_flac}}"
-                        if artists
-                        else f"🗽 <b>{utils.escape_html(track)}</b>{{is_flac}}"
-                    )
-                    if track
-                    else "{is_flac}"
-                )
-            ).format(
-                is_flac=(
-                    "\n<emoji document_id=5359582743992737342>😎</emoji> <b>FLAC"
-                    f" {self.strings('quality')}</b>"
-                    if getattr(music, "is_flac", False)
-                    else ""
-                )
-            ),
-            reply_to=getattr(message, "reply_to_msg_id", None),
-        )
+        try:
+			await self._client.send_file(
+            	message.peer_id,
+            	music,
+	            caption=(
+	                override_text
+	                or (
+	                    (
+	                        f"🗽 <b>{utils.escape_html(full_song_name)}</b>{{is_flac}}"
+	                        if artists
+	                        else f"🗽 <b>{utils.escape_html(track)}</b>{{is_flac}}"
+	                    )
+	                    if track
+	                    else "{is_flac}"
+	                )
+	            ).format(
+	                is_flac=(
+	                    "\n<emoji document_id=5359582743992737342>😎</emoji> <b>FLAC"
+	                    f" {self.strings('quality')}</b>"
+	                    if getattr(music, "is_flac", False)
+	                    else ""
+	                )
+	            ),
+	            reply_to=getattr(message, "reply_to_msg_id", None),
+	        )
 
-        if message.out:
-            await message.delete()
+	        if message.out:
+	            await message.delete()
+		except Exception: 
+			pass
 
     @error_handler
     @tokenized
